@@ -16,6 +16,10 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-document.addEventListener('DOMContentLoaded' () => {
-  
+document.addEventListener("DOMContentLoaded" () => {
+  const grid = document.querySelector(".grid")
+  let squares = Array.from(document.querySelectorAll(".grid div"))
+  const width = 10
+
+  console.log(squares)
 })
