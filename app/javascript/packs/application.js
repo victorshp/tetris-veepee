@@ -16,10 +16,16 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-document.addEventListener("DOMContentLoaded" () => {
+document.addEventListener('DOMContentLoaded', () => {
+  // gets the grid and assigns it to grid. Affecting the element of class grid
   const grid = document.querySelector(".grid")
+  // collect all divs in grid and turn into array
   let squares = Array.from(document.querySelectorAll(".grid div"))
+  const scoreDisplay = document.querySelector("#score")
+  const startBtn = document.querySelector("#start-button") 
   const width = 10
 
   console.log(squares)
 })
+ 
+ 
