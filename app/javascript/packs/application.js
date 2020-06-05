@@ -28,31 +28,31 @@ document.addEventListener('DOMContentLoaded', () => {
   // The Tetriminos
   // L, J, S, Z, T, O, I 
   const lTetrimino = [
+    [0, 1, width+1, width*2+1],
+    [width+2, width*2, width*2+1, width*2+2],
+    [1, width+1, width*2+1, width*2+2],
+    [width, width+1, width+2, width*2]
+  ]
+
+  const jTetrimino = [
     [1, 2, width+1, width*2+1],
     [width, width+1, width+2, width*2+2],
     [1, width+1, width*2, width*2+1],
     [width, width*2, width*2+1, width*2+2]
   ]
 
-  const jTetrimino = [
-    [0, 1, width+1, width*2+1],
-    [width, width+1, width+2+1, width*2],
-    [1, width+1, width*2+1, width*2+2],
-    [width*2, width*2+1, width*2+2, width+2]
-  ]
-
   const zTetrimino = [
-    [width, width+1, width*2+1, width*2+2],
-    [2, width+1, width+2, width*2+1],
+    [0, 1, width+1, width+2],
+    [1, width, width+1, width*2],
     [width, width+1, width*2+1, width*2+2],
     [2, width+1, width+2, width*2+1]
   ]
 
   const sTetrimino = [
-    [width+1, width+2, width*2, width*2+1],
-    [0, width, width+1, width*2+1],
-    [width+1, width+2, width*2, width*2+1],
-    [0, width, width+1, width*2+1]
+    [1, 2, width, width+1],
+    [1, width, width+1, width*2],
+    [width, width+1, width*2+1, width*2+2],
+    [2, width+1, width+2, width*2+1]
   ]
 
   const tTetrimino = [
@@ -72,11 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const iTetrimino = [
     [1, width+1, width*2+1, width*3+1],
     [width, width+1, width+2, width+3],
-    [1, width+1, width*2+1, width*3+1],
-    [width, width+1, width+2, width+3]
+    [2, width+2, width*2+2, width*3+2],
+    [width*2, width*2+1, width*2+2, width*2+3]
   ]
 
-  const theTetriminos = [ lTetrimino, jTetrimino, sTetrimino, zTetrimino, sTetrimino, tTetrimino, oTetrimino]
+  const theTetriminos = [ lTetrimino, jTetrimino, sTetrimino, zTetrimino, tTetrimino, oTetrimino, iTetrimino]
 
   let currentPosition = 4
   let currentRotation = 0
@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // make the tetriminos move down every second
-  let timerId = setInterval(moveDown, 100)
+  let timerId = setInterval(moveDown, 500)
 
   // Assign functions to KeyCodes - JS listens to which keys are pressed
   function control(e) {
@@ -131,6 +131,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if(e.keyCode === 39) {
       moveRight()
+    }
+    if(e.keyCode === 38) {
+      rotate()
     }
   }
   document.addEventListener('keyup', control)
@@ -158,6 +161,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     draw()
   }
-})
+
+  // Rotate the tetrimino
+  rotate = () => {
+    undraw()
+    currentRotation++
+    if(currentRotation === current.length) {
+      currentRotation = 0
+    }
+    current = theTetriminos[random][currentRotation]
+    draw()
+  }
+
+})  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  
