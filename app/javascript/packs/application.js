@@ -25,7 +25,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const startBtn = document.querySelector("#start-button") 
   const width = 10
 
-  console.log(squares)
+  // The Tetriminos
+  // L, J, S, Z, T, O, I 
+  const lTetrimino [
+    [1, width+1, width*2+1, width*3+1],
+    [width, width+1, width+2+1, width*2+2],
+    [1, width+1, width*2+1, width*3+1],
+    [1, width+1, width*2+1, width*3+1]
+  ]
+
+  const jTetrimino [
+    [0, 1, width+1, width*2+1],
+    [width, width+1, width+2+1, width*2],
+    [1, width+1, width*2+1, width*2+2],
+    [width*2, width*2+1, width*2+2, width+2]
+  ]
+
+  const zTetrimino [
+    [width, width+1, width*2+1, width*2+2],
+    [2, width+1, width+2, width*2+1],
+    [width, width+1, width*2+1, width*2+2],
+    [2, width+1, width+2, width*2+1]
+  ]
+
+  const sTetrimino [
+    [width+1, width+2, width*2, width*2+1],
+    [0, width, width+1, width*2+1],
+    [width+1, width+2, width*2, width*2+1],
+    [0, width, width+1, width*2+1]
+  ]
+
+  const tTetrimino [
+    []
+  ]
 })
- 
+
  
