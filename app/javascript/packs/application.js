@@ -124,11 +124,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // make the tetriminos move down every second
   let timerId = setInterval(moveDown, 100)
 
+  // Assign functions to KeyCodes - JS listens to which keys are pressed
+  function control(e) {
+    if(e.keyCode === 37) {
+      moveLeft()
+    }
+    if(e.keyCode === 39) {
+      moveRight()
+    }
+  }
+  document.addEventListener('keyup', control)
+
   // Move tetrimino left unless it's at the edge or there's a blockage.
   const moveLeft = () => {
     undraw()
     // if current is at square index multiples of 10 or 0, its at the Left Edge.  
-    const isAtLeftedge = current.some(index => (currentPosition + index) % width === 0)
+    const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0)
     // If not at left Edge, currentPosition reduces one so the tetrimino to the left. Also, if there is a tetrimino in left, meaning a div with taken to the left, go back to the right, appearing not to move.
     if(!isAtLeftEdge) currentPosition -=1
     if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
@@ -137,7 +148,16 @@ document.addEventListener('DOMContentLoaded', () => {
     draw()
   }
 
-
+  // Move tetrimino right unless it's at the edge or there's a blockage.
+  const moveRight = () => {
+    undraw()
+    const isAtRightEdge = current.some(index => (currentPosition + index) % width === width - 1)
+    if(!isAtRightEdge) currentPosition += 1
+    if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+      currentPosition -= 1
+    }
+    draw()
+  }
 })
 
  
