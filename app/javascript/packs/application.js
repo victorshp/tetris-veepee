@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const theTetriminos = [ lTetrimino, jTetrimino, sTetrimino, zTetrimino, sTetrimino, tTetrimino, oTetrimino]
 
-  let currentPosition = Math.floor(Math.random()*(width - 4))
+  let currentPosition = 4
   let currentRotation = 0
 
   // randomly select a Tetrimino
@@ -100,15 +100,43 @@ document.addEventListener('DOMContentLoaded', () => {
     })
   }
  
+  // freeze function - if any square underneath the current tetrimino contains the class taken, add the class taken to that tetrimino, freezing it and launch another random tetrimino piece.
+    // think width 10 and cP 4. It will check square of index 14, then 24, then 34, and so on...
+  const freeze = () => {
+    if (current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
+      current.forEach(index => squares[currentPosition + index].classList.add('taken'))
+      // start new tetrimino falling
+      random = Math.floor(Math.random() * theTetriminos.length)
+      current = theTetriminos[random][currentRotation]
+      currentPosition = 4
+      draw()
+    }
+  }
+
   // moveDown funcion
   moveDown = () => {
     undraw()
     currentPosition += width
     draw()
+    freeze()
   }
 
   // make the tetriminos move down every second
-  timerId = setInterval(moveDown, 1000)
+  let timerId = setInterval(moveDown, 100)
+
+  // Move tetrimino left unless it's at the edge or there's a blockage.
+  const moveLeft = () => {
+    undraw()
+    // if current is at square index multiples of 10 or 0, its at the Left Edge.  
+    const isAtLeftedge = current.some(index => (currentPosition + index) % width === 0)
+    // If not at left Edge, currentPosition reduces one so the tetrimino to the left. Also, if there is a tetrimino in left, meaning a div with taken to the left, go back to the right, appearing not to move.
+    if(!isAtLeftEdge) currentPosition -=1
+    if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+      currentPosition += 1
+    }
+    draw()
+  }
+
 
 })
 
