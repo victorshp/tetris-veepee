@@ -27,54 +27,89 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // The Tetriminos
   // L, J, S, Z, T, O, I 
-  const lTetrimino [
-    [1, width+1, width*2+1, width*3+1],
-    [width, width+1, width+2+1, width*2+2],
-    [1, width+1, width*2+1, width*3+1],
-    [1, width+1, width*2+1, width*3+1]
+  const lTetrimino = [
+    [1, 2, width+1, width*2+1],
+    [width, width+1, width+2, width*2+2],
+    [1, width+1, width*2, width*2+1],
+    [width, width*2, width*2+1, width*2+2]
   ]
 
-  const jTetrimino [
+  const jTetrimino = [
     [0, 1, width+1, width*2+1],
     [width, width+1, width+2+1, width*2],
     [1, width+1, width*2+1, width*2+2],
     [width*2, width*2+1, width*2+2, width+2]
   ]
 
-  const zTetrimino [
+  const zTetrimino = [
     [width, width+1, width*2+1, width*2+2],
     [2, width+1, width+2, width*2+1],
     [width, width+1, width*2+1, width*2+2],
     [2, width+1, width+2, width*2+1]
   ]
 
-  const sTetrimino [
+  const sTetrimino = [
     [width+1, width+2, width*2, width*2+1],
     [0, width, width+1, width*2+1],
     [width+1, width+2, width*2, width*2+1],
     [0, width, width+1, width*2+1]
   ]
 
-  const tTetrimino [
+  const tTetrimino = [
     [1, width, width+1, width+2],
     [1, width+1, width+2, width*2+1],
     [width, width+1, width+2, width*2+1],
     [1, width, width+1, width*2+1]
   ]
 
-  const oTetrimino [
+  const oTetrimino = [
     [0, 1, width, width+1],
     [0, 1, width, width+1],
     [0, 1, width, width+1],
     [0, 1, width, width+1]
   ]
 
-  const iTetrimino [
+  const iTetrimino = [
     [1, width+1, width*2+1, width*3+1],
     [width, width+1, width+2, width+3],
     [1, width+1, width*2+1, width*3+1],
     [width, width+1, width+2, width+3]
   ]
+
+  const theTetriminos = [ lTetrimino, jTetrimino, sTetrimino, zTetrimino, sTetrimino, tTetrimino, oTetrimino]
+
+  let currentPosition = Math.floor(Math.random()*(width - 4))
+  let currentRotation = 0
+
+  // randomly select a Tetrimino
+  let random = Math.floor(Math.random()*theTetriminos.length)
+  let current = theTetriminos[random][currentRotation]
+
+  // draw the tetrimino
+  const draw = () => {
+    current.forEach(index => {
+      squares[currentPosition + index].classList.add('tetrimino')
+    })
+  }
+
+
+  // undraw the tetrimino
+  const undraw = () => {
+    current.forEach(index => {
+      squares[currentPosition + index].classList.remove('tetrimino')
+    })
+  }
+ 
+  // moveDown funcion
+  moveDown = () => {
+    undraw()
+    currentPosition += width
+    draw()
+  }
+
+  // make the tetriminos move down every second
+  timerId = setInterval(moveDown, 1000)
+
 })
 
  
