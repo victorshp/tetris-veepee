@@ -56,7 +56,24 @@ document.addEventListener('DOMContentLoaded', () => {
   ]
 
   const tTetrimino [
-    []
+    [1, width, width+1, width+2],
+    [1, width+1, width+2, width*2+1],
+    [width, width+1, width+2, width*2+1],
+    [1, width, width+1, width*2+1]
+  ]
+
+  const oTetrimino [
+    [0, 1, width, width+1],
+    [0, 1, width, width+1],
+    [0, 1, width, width+1],
+    [0, 1, width, width+1]
+  ]
+
+  const iTetrimino [
+    [1, width+1, width*2+1, width*3+1],
+    [width, width+1, width+2, width+3],
+    [1, width+1, width*2+1, width*3+1],
+    [width, width+1, width+2, width+3]
   ]
 })
 
