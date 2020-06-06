@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const scoreDisplay = document.querySelector("#score")
   const startBtn = document.querySelector("#start-button") 
   const width = 10
+  let nextRandom = 0
+  let timerId
 
   // The Tetriminos
   // L, J, S, Z, T, O, I 
@@ -50,9 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const sTetrimino = [
     [1, 2, width, width+1],
-    [1, width, width+1, width*2],
-    [width, width+1, width*2+1, width*2+2],
-    [2, width+1, width+2, width*2+1]
+    [0, width, width+1, width*2+1],
+    [width+1, width+2, width*2, width*2+1],
+    [1, width+1, width+2, width*2+2]
   ]
 
   const tTetrimino = [
@@ -106,10 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
       current.forEach(index => squares[currentPosition + index].classList.add('taken'))
       // start new tetrimino falling
-      random = Math.floor(Math.random() * theTetriminos.length)
+      random = nextRandom
+      nextRandom = Math.floor(Math.random() * theTetriminos.length)
       current = theTetriminos[random][currentRotation]
       currentPosition = 4
       draw()
+      displayShape()
     }
   }
 
@@ -122,18 +126,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // make the tetriminos move down every second
-  let timerId = setInterval(moveDown, 500)
+  timerId = setInterval(moveDown, 250)
 
   // Assign functions to KeyCodes - JS listens to which keys are pressed
   function control(e) {
     if(e.keyCode === 37) {
       moveLeft()
-    }
-    if(e.keyCode === 39) {
+    } else if(e.keyCode === 39) {
       moveRight()
-    }
-    if(e.keyCode === 38) {
+    } else if(e.keyCode === 38) {
       rotate()
+    } else if(e.keyCode === 40) {
+      moveDown()
     }
   }
   document.addEventListener('keyup', control)
@@ -173,13 +177,49 @@ document.addEventListener('DOMContentLoaded', () => {
     draw()
   }
 
+  // Next tetrimino box in mini-grid display
+  const displaySquares = document.querySelectorAll('.mini-grid div')
+  const displayWidth = 4
+  let displayIndex = 0
+    // Tetriminos without rotations
+  const upNextTetriminos = [
+    [1, 2, displayWidth+2, displayWidth*2+2],
+    [1, 2, displayWidth+1, displayWidth*2+1],
+    [2, 3, displayWidth+1, displayWidth+2],
+    [1, 2, displayWidth+2, displayWidth+3],
+    [2, displayWidth+1, displayWidth+2, displayWidth+3],
+    [1, 2, displayWidth+1, displayWidth+2],
+    [1, displayWidth+1, displayWidth*2+1, displayWidth*3+1]
+  ]
+    // function that will display the shape
+  displayShape = () => {
+      // remove any trace of a tetrimino from the mini grid
+    displaySquares.forEach(square => {
+      square.classList.remove('tetrimino')
+    })
+    upNextTetriminos[nextRandom].forEach(index => {
+      displaySquares[displayIndex + index].classList.add('tetrimino')
+    })
+  }
+
+  // Start button
+  startBtn.addEventListener('click', () => {
+    if (timerId) {
+      clearInterval(timerId)
+      timerId = null
+    } else {
+      draw()
+      timerId = setInterval(moveDown,250)
+      nextRandom = Math.floor(Math.random() * theTetriminos.length)
+      displayShape()
+    }
+  })
+
+
+
+
+
 })  
-
-
-
-
-
-
 
 
 
