@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
   let nextRandom = 0
   let timerId
   let score = 0
+  const colors = [
+  ]
 
   // The Tetriminos
   // L, J, S, Z, T, O, I 
@@ -116,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
       draw()
       displayShape()
       addScore()
+      gameOver()
     }
   }
 
@@ -189,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
     [1, 2, displayWidth+1, displayWidth*2+1],
     [2, 3, displayWidth+1, displayWidth+2],
     [1, 2, displayWidth+2, displayWidth+3],
-    [2, displayWidth+1, displayWidth+2, displayWidth+3],
+    [1, displayWidth, displayWidth+1, displayWidth+2],
     [1, 2, displayWidth+1, displayWidth+2],
     [1, displayWidth+1, displayWidth*2+1, displayWidth*3+1]
   ]
@@ -217,7 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })
 
-
   // add score
   addScore = () => {
     for (let i = 0; i < 199; i += width) {
@@ -237,6 +239,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  gameOver = () => {
+    if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+      scoreDisplay.innerHTML = 'END'
+      clearInterval(timerId)
+    }
+  }
 
 })  
 
