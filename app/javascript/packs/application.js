@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const width = 10
   let nextRandom = 0
   let timerId
+  let score = 0
 
   // The Tetriminos
   // L, J, S, Z, T, O, I 
@@ -114,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       currentPosition = 4
       draw()
       displayShape()
+      addScore()
     }
   }
 
@@ -126,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // make the tetriminos move down every second
-  timerId = setInterval(moveDown, 250)
+  // timerId = setInterval(moveDown, 250)
 
   // Assign functions to KeyCodes - JS listens to which keys are pressed
   function control(e) {
@@ -193,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ]
     // function that will display the shape
   displayShape = () => {
-      // remove any trace of a tetrimino from the mini grid
+      // remove any trace of a tetrimino from the mini grid to clean it up
     displaySquares.forEach(square => {
       square.classList.remove('tetrimino')
     })
@@ -216,7 +218,24 @@ document.addEventListener('DOMContentLoaded', () => {
   })
 
 
+  // add score
+  addScore = () => {
+    for (let i = 0; i < 199; i += width) {
+      const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9]
 
+      if(row.every(index => squares[index].classList.contains('taken'))) {
+        score += 10
+        scoreDisplay.innerHTML = score
+        row.forEach(index => {
+          squares[index].classList.remove('taken')
+          squares[index].classList.remove('tetrimino')
+        })
+        const squaresRemoved = squares.splice(i, width)
+        squares = squaresRemoved.concat(squares)
+        squares.forEach(cell => grid.appendChild(cell))
+      }
+    }
+  }
 
 
 })  
