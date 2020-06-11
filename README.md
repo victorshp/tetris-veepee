@@ -1,24 +1,15 @@
-# README
+This is a clone of the famous Tetris game with some minor modifications built with vanilla JavaScript on top of the Rails framework.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To play it, you can access it [here](https://tetris-veepee.herokuapp.com/)
 
-Things you may want to cover:
+It's free. If you want to talk to me or just have a question, PM me at [@vic_shpark](https://twitter.com/vic_shpark) on Twitter.
 
-* Ruby version
+# How to Play
 
-* System dependencies
+Each key has its corresponding action:
 
-* Configuration
+* Key up => Rotate tetrimino piece
 
-* Database creation
+* Key left => Move left
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Key right => Move right
